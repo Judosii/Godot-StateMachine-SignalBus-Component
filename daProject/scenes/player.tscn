@@ -1,0 +1,207 @@
+[gd_scene load_steps=26 format=3 uid="uid://drsri7xs5guyt"]
+
+[ext_resource type="Script" uid="uid://dj34vid5dtxf" path="res://scenes/TemplatePlayerScript.gd" id="1_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://dyf2tlsdgaykh" path="res://icon.svg" id="2_qhqgy"]
+[ext_resource type="Script" uid="uid://bnri7gjpc5beq" path="res://engine/SignalBroker/signal_broker.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://bo2qd5qc5x753" path="res://engine/Components/COMP_Input.gd" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://dle5oiwrprsjs" path="res://engine/StateMachine/State_Machine.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://bjiiemovwwjuy" path="res://engine/Components/COMP_Move.gd" id="5_smehm"]
+[ext_resource type="Script" uid="uid://cl0s651m5elkg" path="res://engine/Components/COMP_Collision.gd" id="5_y4r1p"]
+[ext_resource type="Script" uid="uid://jjg11j3ear6v" path="res://engine/Components/COMP_Jump.gd" id="6_ur7pv"]
+[ext_resource type="Script" uid="uid://b26oiib5geh55" path="res://engine/CustomResources/SignalToCall.gd" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://bwq3kftes4jsh" path="res://engine/Components/COMP_Gravity.gd" id="8_d2wvv"]
+[ext_resource type="Script" uid="uid://dfmwvb8m5l6ly" path="res://engine/StateMachine/States/STATE_Start.gd" id="10_3v2ag"]
+[ext_resource type="Script" uid="uid://624xdr24o4iq" path="res://engine/StateMachine/State_Base.gd" id="12_3v2ag"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
+size = Vector2(128, 128)
+
+[sub_resource type="Resource" id="Resource_jej6c"]
+script = ExtResource("7_fjrip")
+signalName = "CompColl_touchedFloor"
+functionToCall = "CompJump_EntityLanded"
+metadata/_custom_type_script = "uid://b26oiib5geh55"
+
+[sub_resource type="Resource" id="Resource_f1ej7"]
+script = ExtResource("7_fjrip")
+signalName = "CompColl_leftFloor"
+functionToCall = "CompJump_EntityLeftFloor"
+metadata/_custom_type_script = "uid://b26oiib5geh55"
+
+[sub_resource type="Resource" id="Resource_d2wvv"]
+script = ExtResource("7_fjrip")
+signalName = "CompInput_direction"
+functionToCall = "CompMove_Move"
+metadata/_custom_type_script = "uid://b26oiib5geh55"
+
+[sub_resource type="Resource" id="Resource_3v2ag"]
+script = ExtResource("7_fjrip")
+signalName = "CompInput_directionPressed"
+functionToCall = "State_Walking"
+metadata/_custom_type_script = "uid://b26oiib5geh55"
+
+[sub_resource type="Resource" id="Resource_smehm"]
+script = ExtResource("7_fjrip")
+signalName = "CompInput_direction"
+functionToCall = "CompMove_Move"
+metadata/_custom_type_script = "uid://b26oiib5geh55"
+
+[sub_resource type="Resource" id="Resource_a8ls1"]
+script = ExtResource("7_fjrip")
+signalName = "CompInput_jumpPressed"
+functionToCall = "CompJump_StartJump"
+metadata/_custom_type_script = "uid://b26oiib5geh55"
+
+[sub_resource type="Resource" id="Resource_qfm1y"]
+script = ExtResource("7_fjrip")
+signalName = "CompColl_touchedFloor"
+functionToCall = "CompJump_EntityLanded"
+metadata/_custom_type_script = "uid://b26oiib5geh55"
+
+[sub_resource type="Resource" id="Resource_fulsm"]
+script = ExtResource("7_fjrip")
+signalName = "CompColl_leftFloor"
+functionToCall = "CompJump_EntityLeftFloor"
+metadata/_custom_type_script = "uid://b26oiib5geh55"
+
+[sub_resource type="Resource" id="Resource_4r5pv"]
+script = ExtResource("7_fjrip")
+signalName = "CompMove_stopMoving"
+functionToCall = "State_Idle"
+metadata/_custom_type_script = "uid://b26oiib5geh55"
+
+[sub_resource type="Resource" id="Resource_i4ail"]
+script = ExtResource("7_fjrip")
+signalName = "CompJump_justJumped"
+functionToCall = "State_Jumping"
+metadata/_custom_type_script = "uid://b26oiib5geh55"
+
+[sub_resource type="Resource" id="Resource_a38lo"]
+script = ExtResource("7_fjrip")
+signalName = "CompInput_direction"
+functionToCall = "CompMove_Move"
+metadata/_custom_type_script = "uid://b26oiib5geh55"
+
+[sub_resource type="Resource" id="Resource_4ni07"]
+script = ExtResource("7_fjrip")
+signalName = "CompColl_touchedFloor"
+functionToCall = "State_Walking"
+metadata/_custom_type_script = "uid://b26oiib5geh55"
+
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("debugLabel", "stateMachine")]
+script = ExtResource("1_qhqgy")
+debugLabel = NodePath("Label")
+stateMachine = NodePath("StateMachine")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_qhqgy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_dqkch")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 150)
+collide_with_areas = true
+
+[node name="SignalBroker" type="Node" parent="."]
+script = ExtResource("3_qhqgy")
+
+[node name="ComponentsHolder" type="Node" parent="."]
+
+[node name="InputComponent" type="Node" parent="ComponentsHolder" node_paths=PackedStringArray("signalBroker")]
+script = ExtResource("4_dqkch")
+signalBroker = NodePath("../../SignalBroker")
+signalsToRegister = Array[String](["CompInput_direction", "CompInput_directionPressed", "CompInput_directionReleased", "CompInput_jumpPressed"])
+
+[node name="CollisionComponent" type="Node" parent="ComponentsHolder" node_paths=PackedStringArray("signalBroker")]
+script = ExtResource("5_y4r1p")
+signalBroker = NodePath("../../SignalBroker")
+signalsToRegister = Array[String](["CompColl_touchedFloor", "CompColl_leftFloor", "CompColl_touchedWall", "CompColl_leftWall", "CompColl_touchedCeiling", "CompColl_leftCeiling"])
+functionsToRegister = Array[String](["CompColl_SetColl", "CompColl_GetColl"])
+metadata/_custom_type_script = "uid://drr18chxkl5kj"
+
+[node name="MovementComponent" type="Node" parent="ComponentsHolder" node_paths=PackedStringArray("signalBroker")]
+script = ExtResource("5_smehm")
+signalBroker = NodePath("../../SignalBroker")
+signalsToRegister = Array[String](["CompMove_startMoving", "CompMove_stopMoving"])
+functionsToRegister = Array[String](["CompMove_Move"])
+metadata/_custom_type_script = "uid://drr18chxkl5kj"
+
+[node name="JumpComponent" type="Node" parent="ComponentsHolder" node_paths=PackedStringArray("risingTimer", "apexTimer", "fallTimer", "bufferTimer", "coyoteTimer", "signalBroker")]
+script = ExtResource("6_ur7pv")
+timeToApex = 1.0
+timeAtApex = 1.0
+timeToFall = 1.0
+risingTimer = NodePath("Rising")
+apexTimer = NodePath("Apex")
+fallTimer = NodePath("Fall")
+bufferTimer = NodePath("Buffer")
+coyoteTimer = NodePath("Coyote")
+JUMP_VELOCITY = -400.0
+signalBroker = NodePath("../../SignalBroker")
+signalsToRegister = Array[String](["CompJump_justJumped"])
+functionsToRegister = Array[String](["CompJump_StartJump", "CompJump_EntityLanded", "CompJump_EntityLeftFloor"])
+metadata/_custom_type_script = "uid://drr18chxkl5kj"
+
+[node name="Rising" type="Timer" parent="ComponentsHolder/JumpComponent"]
+
+[node name="Apex" type="Timer" parent="ComponentsHolder/JumpComponent"]
+
+[node name="Fall" type="Timer" parent="ComponentsHolder/JumpComponent"]
+
+[node name="Buffer" type="Timer" parent="ComponentsHolder/JumpComponent"]
+wait_time = 0.1
+one_shot = true
+ignore_time_scale = true
+
+[node name="Coyote" type="Timer" parent="ComponentsHolder/JumpComponent"]
+wait_time = 0.1
+one_shot = true
+ignore_time_scale = true
+
+[node name="GravityComponent" type="Node" parent="ComponentsHolder" node_paths=PackedStringArray("signalBroker")]
+script = ExtResource("8_d2wvv")
+signalBroker = NodePath("../../SignalBroker")
+functionsToRegister = Array[String](["CompGrav_ReturnGravity"])
+metadata/_custom_type_script = "uid://drr18chxkl5kj"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("signalBroker", "curState")]
+script = ExtResource("5_qlg0r")
+signalBroker = NodePath("../SignalBroker")
+curState = NodePath("State_Start")
+
+[node name="State_Start" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "r")]
+script = ExtResource("10_3v2ag")
+idleState = NodePath("../State_Idle")
+r = NodePath("../../RayCast2D")
+metadata/_custom_type_script = "uid://624xdr24o4iq"
+
+[node name="State_Idle" type="Node" parent="StateMachine"]
+script = ExtResource("12_3v2ag")
+signalsToListen = Array[ExtResource("7_fjrip")]([SubResource("Resource_jej6c"), SubResource("Resource_f1ej7"), SubResource("Resource_d2wvv")])
+signalsToState = Array[ExtResource("7_fjrip")]([SubResource("Resource_3v2ag")])
+metadata/_custom_type_script = "uid://624xdr24o4iq"
+
+[node name="State_Walking" type="Node" parent="StateMachine"]
+script = ExtResource("12_3v2ag")
+signalsToListen = Array[ExtResource("7_fjrip")]([SubResource("Resource_smehm"), SubResource("Resource_a8ls1"), SubResource("Resource_qfm1y"), SubResource("Resource_fulsm")])
+signalsToState = Array[ExtResource("7_fjrip")]([SubResource("Resource_4r5pv"), SubResource("Resource_i4ail")])
+metadata/_custom_type_script = "uid://624xdr24o4iq"
+
+[node name="State_Jumping" type="Node" parent="StateMachine"]
+script = ExtResource("12_3v2ag")
+signalsToListen = Array[ExtResource("7_fjrip")]([SubResource("Resource_a38lo")])
+signalsToState = Array[ExtResource("7_fjrip")]([SubResource("Resource_4ni07")])
+metadata/_custom_type_script = "uid://624xdr24o4iq"
+
+[node name="State_Fall" type="Node" parent="StateMachine"]
+script = ExtResource("12_3v2ag")
+metadata/_custom_type_script = "uid://624xdr24o4iq"
+
+[node name="Label" type="Label" parent="."]
+offset_left = -65.0
+offset_top = -89.0
+offset_right = -13.0
+offset_bottom = -65.0
+text = "aaaa"
