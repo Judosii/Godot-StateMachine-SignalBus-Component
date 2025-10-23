@@ -4,10 +4,12 @@ signal CompInput_direction(float, int)
 signal CompInput_directionPressed
 signal CompInput_directionReleased
 signal CompInput_jumpPressed(float)
+signal CompInput_delta(float)
 
 var dirPressed: bool = false
 
 func _process(delta: float) -> void:
+	CompInput_delta.emit(delta)
 	var _inputDir : int = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
 	if _inputDir != 0 && dirPressed == false:
 		dirPressed = true

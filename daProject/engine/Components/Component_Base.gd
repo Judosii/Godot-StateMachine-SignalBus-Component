@@ -2,6 +2,7 @@ class_name Component_Base extends Node
 
 @onready var entityParent : Entity = $"../.."
 @export var signalBroker : SignalBroker
+@export var brokerBridge: SignalBrokerBridge
 @export_group("signals to register")
 @export var signalsToRegister: Array[String]
 @export_group("functions to register")

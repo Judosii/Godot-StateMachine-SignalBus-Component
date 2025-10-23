@@ -15,6 +15,9 @@ func get_signal_emitter(signal_name: String) -> Node:
 		return signalRegistry.get(signal_name,null)
 	return null
 
+func delete_signal(signal_name: String) -> bool:
+	return signalRegistry.erase(signal_name)
+
 func register_Callable(func_name: String,emitter: Node):
 	if func_name not in functionRegistry:
 		functionRegistry[func_name] = emitter
@@ -24,3 +27,6 @@ func get_Callable(func_name: String)-> Node:
 	if functionRegistry.has(func_name):
 		return functionRegistry.get(func_name,null)
 	return null
+
+func deelte_Callable(func_name: String) -> bool:
+	return functionRegistry.erase(func_name)

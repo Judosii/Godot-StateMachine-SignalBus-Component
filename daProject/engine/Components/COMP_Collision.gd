@@ -42,23 +42,19 @@ func _process(_delta: float) -> void:
 		CompColl_leftCeiling.emit()
 
 func CompColl_SetColl(i: int, b:bool):
+	if i < 0: i = 0
+	if i > 2: i = 2
 	match i:
-		0:
-			entityIsOnFloor = b
-		1:
-			entityIsOnWall = b
-		2:
-			entityIsOnCeiling = b
+		0:entityIsOnFloor = b
+		1:entityIsOnWall = b
+		2:entityIsOnCeiling = b
 
 func CompColl_GetColl(i:int) -> bool:
 	if i < 0: i = 0
 	if i > 2: i = 2
 	match i:
-		0:
-			return entityIsOnFloor
-		1:
-			pass
-		2:
-			pass
+		0:return entityIsOnFloor
+		1:return entityIsOnWall
+		2:return entityIsOnCeiling
 	printerr("how? ",i)
 	return false

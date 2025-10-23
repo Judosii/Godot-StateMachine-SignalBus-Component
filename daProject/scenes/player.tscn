@@ -1,9 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://drsri7xs5guyt"]
+[gd_scene load_steps=28 format=3 uid="uid://drsri7xs5guyt"]
 
 [ext_resource type="Script" uid="uid://dj34vid5dtxf" path="res://scenes/TemplatePlayerScript.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://dyf2tlsdgaykh" path="res://icon.svg" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://bnri7gjpc5beq" path="res://engine/SignalBroker/signal_broker.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://bo2qd5qc5x753" path="res://engine/Components/COMP_Input.gd" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://bhwv17pkbp6pr" path="res://engine/CustomResources/ConnectionToSignalBroker.gd" id="5_jej6c"]
 [ext_resource type="Script" uid="uid://dle5oiwrprsjs" path="res://engine/StateMachine/State_Machine.gd" id="5_qlg0r"]
 [ext_resource type="Script" uid="uid://bjiiemovwwjuy" path="res://engine/Components/COMP_Move.gd" id="5_smehm"]
 [ext_resource type="Script" uid="uid://cl0s651m5elkg" path="res://engine/Components/COMP_Collision.gd" id="5_y4r1p"]
@@ -15,6 +16,10 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
 size = Vector2(128, 128)
+
+[sub_resource type="Resource" id="Resource_oprun"]
+script = ExtResource("5_jej6c")
+metadata/_custom_type_script = "uid://bhwv17pkbp6pr"
 
 [sub_resource type="Resource" id="Resource_jej6c"]
 script = ExtResource("7_fjrip")
@@ -112,7 +117,8 @@ script = ExtResource("3_qhqgy")
 [node name="InputComponent" type="Node" parent="ComponentsHolder" node_paths=PackedStringArray("signalBroker")]
 script = ExtResource("4_dqkch")
 signalBroker = NodePath("../../SignalBroker")
-signalsToRegister = Array[String](["CompInput_direction", "CompInput_directionPressed", "CompInput_directionReleased", "CompInput_jumpPressed"])
+brokerBridge = SubResource("Resource_oprun")
+signalsToRegister = Array[String](["CompInput_delta", "CompInput_direction", "CompInput_directionPressed", "CompInput_directionReleased", "CompInput_jumpPressed"])
 
 [node name="CollisionComponent" type="Node" parent="ComponentsHolder" node_paths=PackedStringArray("signalBroker")]
 script = ExtResource("5_y4r1p")
@@ -163,13 +169,13 @@ ignore_time_scale = true
 [node name="GravityComponent" type="Node" parent="ComponentsHolder" node_paths=PackedStringArray("signalBroker")]
 script = ExtResource("8_d2wvv")
 signalBroker = NodePath("../../SignalBroker")
-functionsToRegister = Array[String](["CompGrav_ReturnGravity"])
+functionsToRegister = Array[String](["CompGrav_ReturnGravity", "CompGrav_ApplyGravityToParent"])
 metadata/_custom_type_script = "uid://drr18chxkl5kj"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("signalBroker", "curState")]
 script = ExtResource("5_qlg0r")
 signalBroker = NodePath("../SignalBroker")
-curState = NodePath("State_Start")
+curState = NodePath("State_Idle")
 
 [node name="State_Start" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "r")]
 script = ExtResource("10_3v2ag")

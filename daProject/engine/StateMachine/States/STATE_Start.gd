@@ -3,6 +3,16 @@ extends StateBase
 @export var idleState: StateBase
 @export var r : RayCast2D
 
+func ActivateState():
+	super.ActivateState()
+	while r.is_colliding() == false:
+		entityParent.position += r.target_position
+	var p: float = r.get_collision_point().y
+	var playerHeight: float = entityParent.get_node("CollisionShape2D").shape.size.y
+	entityParent.position.y = p - playerHeight/2
+	# collision components, set onFloor to true
+	stateManager._changeState(idleState)
+
 
 func StateFunction(_delta:float):
 	#super.ActivateState()
@@ -15,4 +25,5 @@ func StateFunction(_delta:float):
 			var p :float = r.get_collision_point().y
 			var playerHeight: float = entityParent.get_node("CollisionShape2D").shape.size.y
 			entityParent.position.y = p - playerHeight/2
+			# collision components, set onFloor to true
 			stateManager._changeState(idleState)

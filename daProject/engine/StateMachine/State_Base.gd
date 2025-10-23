@@ -1,10 +1,5 @@
 class_name StateBase extends Node
 
-@export_group("state variables")
-@export var canBeHurt: bool
-@export var canJump: bool
-@export var applyGravity: bool
-
 @onready var stateManager : StateMachine = $".."
 @onready var signalBroker : SignalBroker = stateManager.signalBroker
 @onready var entityParent : CharacterBody2D = $"../.."
@@ -19,12 +14,6 @@ func ActivateState():
 	print("")
 	print("activating state: ", name)
 	ConnectToSignals()
-	if canBeHurt:
-		pass
-	if canJump:
-		pass
-	if applyGravity:
-		pass
 
 func DeactivateState():
 	print("deactivating state: ", name)
