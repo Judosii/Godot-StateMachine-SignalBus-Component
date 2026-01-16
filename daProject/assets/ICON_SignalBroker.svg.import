@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4q335xxs2p"
-path="res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+uid="uid://b2b4gaxe163e0"
+path="res://.godot/imported/ICON_SignalBroker.svg-388c6add15b5344e2ba267c1fd3435dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icon.svg"
-dest_files=["res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"]
+source_file="res://assets/ICON_SignalBroker.svg"
+dest_files=["res://.godot/imported/ICON_SignalBroker.svg-388c6add15b5344e2ba267c1fd3435dd.ctex"]
 
 [params]
 

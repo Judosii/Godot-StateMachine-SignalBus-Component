@@ -10,7 +10,20 @@ config_version=5
 
 [application]
 
-config/name="State Manager - Components test"
-run/main_scene="uid://wqa7bc87j20s"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/name="windowed state manager"
+run/main_scene="uid://155xx7s6y6ta"
+config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "blue",
+"res://scenes/": "yellow",
+"res://scripts/": "orange"
+}
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

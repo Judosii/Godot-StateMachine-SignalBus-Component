@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1w5ccem33kle"]
+
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_8afob"]
+[ext_resource type="Script" uid="uid://6iyonbfy33sl" path="res://scripts/player/player.gd" id="1_dovo2"]
+[ext_resource type="Script" uid="uid://c206aglg8iuqn" path="res://scripts/engine/states/state_machine.gd" id="3_gmlin"]
+[ext_resource type="Script" uid="uid://knypbykmu5cj" path="res://scripts/engine/signal_bus/signal_bus.gd" id="3_lvxji"]
+[ext_resource type="Script" uid="uid://b5v7lmbmxgtvt" path="res://scripts/engine/states/base_state.gd" id="6_75vfm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dovo2"]
+size = Vector2(120, 120)
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_dovo2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_8afob")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dovo2")
+
+[node name="signal_bus" type="Node" parent="."]
+script = ExtResource("3_lvxji")
+
+[node name="components_holder" type="Node" parent="."]
+
+[node name="inputs_component" type="Node" parent="components_holder"]
+
+[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("3_gmlin")
+current_state = NodePath("idle_State")
+
+[node name="idle_State" type="Node" parent="state_machine"]
+script = ExtResource("6_75vfm")
+metadata/_custom_type_script = "uid://b5v7lmbmxgtvt"
+
+[node name="walk_State" type="Node" parent="state_machine"]
+script = ExtResource("6_75vfm")
+metadata/_custom_type_script = "uid://b5v7lmbmxgtvt"
