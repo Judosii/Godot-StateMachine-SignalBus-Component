@@ -8,40 +8,46 @@ var curParent: Node
 @export_tool_button("open signal bus window")
 var button = OnOpenWindow
 var allNodesArray : Array[Node]
+@export var windowHierarchy: PackedScene
 
 
 func OnOpenWindow():
-	allNodesArray.clear()
+#region WindowSetup
 	if window != null:
 		return
+	allNodesArray.clear()
 	window = Window.new()
 	var windTitle: String = get_parent().name + "'s broker window"
 	window.title = windTitle
 	EditorInterface.popup_dialog(window,Rect2(Vector2(100,100), Vector2(640,360)))
 	window.close_requested.connect(_on_close_requested)
-	#Window Setup done
-	
-	var sceneRoot: Node = EditorInterface.get_edited_scene_root()
-	LoopForAllChildren(sceneRoot)
-	var vbox:= VBoxContainer.new()
-	window.add_child(vbox)
-	for i in allNodesArray.size():
-		print(allNodesArray[i])
-		var label:= Label.new()
-		vbox.add_child(label)
-		label.text = allNodesArray[i].name
+#endregion
 
-func LoopForAllChildren(_n:Node) -> Array[Node]:
+	var _h: SignalBus_WindowHierarchy = windowHierarchy.instantiate()
+	window.add_child(_h)
+	# Top of the edited scene tree
+	var sceneRoot: Node = EditorInterface.get_edited_scene_root()
+	# All children of edited tree get detected
+	LoopForAllNodeChildren(sceneRoot)
+	
+	for i in allNodesArray.size():
+		_h.GetNodeList().add_child(_h.MakeNewNodeEntry(allNodesArray[i]))
+		var hSep := HSeparator.new()
+		_h.GetNodeList().add_child(hSep)
+
+#Get all nodes in edited scene tree
+func LoopForAllNodeChildren(_n:Node) -> Array[Node]:
 	allNodesArray.append(_n)
 	var _a: Array[Node]
 	for i in _n.get_children().size():
-		LoopForAllChildren(_n.get_child(i))
+		LoopForAllNodeChildren(_n.get_child(i))
 	return _a
 
 func _on_close_requested():
 	window.queue_free()
 #endregion
 
+# v don't touch this until you've made everything visual work
 #region registries
 @export var signalRegistry: Dictionary = {}
 @export var functionRegistry: Dictionary = {}

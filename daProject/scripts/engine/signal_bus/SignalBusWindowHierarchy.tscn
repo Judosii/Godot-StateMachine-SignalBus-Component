@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq75vajcvgedf"]
+
+[ext_resource type="Script" uid="uid://di2fgx8jtyngs" path="res://scripts/engine/signal_bus/signal_bus_window_hierarchy.gd" id="1_3la38"]
+
+[node name="SignalBus Test" type="Control" node_paths=PackedStringArray("nodeList")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_3la38")
+nodeList = NodePath("AllListsParent/Node Panel/scrollNodes/nodeList")
+
+[node name="AllListsParent" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Node Panel" type="PanelContainer" parent="AllListsParent"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="scrollNodes" type="ScrollContainer" parent="AllListsParent/Node Panel"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="nodeList" type="VBoxContainer" parent="AllListsParent/Node Panel/scrollNodes"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="PanelContainer" parent="AllListsParent/Node Panel/scrollNodes/nodeList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AllListsParent/Node Panel/scrollNodes/nodeList/Title"]
+layout_mode = 2
+text = "Node List"
+horizontal_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="AllListsParent"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="scrollSignals" type="ScrollContainer" parent="AllListsParent/PanelContainer2"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="SignalList" type="VBoxContainer" parent="AllListsParent/PanelContainer2/scrollSignals"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="PanelContainer" parent="AllListsParent/PanelContainer2/scrollSignals/SignalList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AllListsParent/PanelContainer2/scrollSignals/SignalList/Title"]
+layout_mode = 2
+text = "Signal List"
+horizontal_alignment = 1
+
+[node name="PanelContainer3" type="PanelContainer" parent="AllListsParent"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="scrollSignals" type="ScrollContainer" parent="AllListsParent/PanelContainer3"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="SignalList" type="VBoxContainer" parent="AllListsParent/PanelContainer3/scrollSignals"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="PanelContainer" parent="AllListsParent/PanelContainer3/scrollSignals/SignalList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AllListsParent/PanelContainer3/scrollSignals/SignalList/Title"]
+layout_mode = 2
+text = "Functions List"
+horizontal_alignment = 1
