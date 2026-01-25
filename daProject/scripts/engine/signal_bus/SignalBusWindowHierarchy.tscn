@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://di2fgx8jtyngs" path="res://scripts/engine/signal_bus/signal_bus_window_hierarchy.gd" id="1_3la38"]
 
-[node name="SignalBus Test" type="Control" node_paths=PackedStringArray("nodeList")]
+[node name="SignalBus Test" type="Control" node_paths=PackedStringArray("nodeList", "signalList", "funcList")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,8 +13,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_3la38")
 nodeList = NodePath("VBoxContainer/AllListsParent/Node Panel/scrollNodes/nodeList")
+signalList = NodePath("VBoxContainer/AllListsParent/Signal Panel/scrollSignals/SignalList")
+funcList = NodePath("VBoxContainer/AllListsParent/Functions Panel/scrollSignals/FunctionList")
 buttonHoverSize = Vector2(1.05, 1.05)
-buttonPressSize = Vector2(0.6, 0.6)
+buttonPressSize = Vector2(0.4, 0.4)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -82,14 +84,14 @@ size_flags_horizontal = 3
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="SignalList" type="VBoxContainer" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals"]
+[node name="FunctionList" type="VBoxContainer" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Title" type="PanelContainer" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals/SignalList"]
+[node name="Title" type="PanelContainer" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals/FunctionList"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals/SignalList/Title"]
+[node name="Label" type="Label" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals/FunctionList/Title"]
 layout_mode = 2
 text = "Functions List"
 horizontal_alignment = 1
