@@ -54,24 +54,61 @@ func ButtonMousePressed(_b:Button):
 	create_tween().tween_property(_b,"scale", buttonHoverSize, 0.2).set_trans(Tween.TRANS_SINE)
 #endregion
 
+#region Node Selected, show signals & functions
 func NewNodeSelected(_n:Node):
-	for i in signalList.get_child_count():
-		#signalList.get_child(i).queue_free()
-		pass
-	
 	#instead of making a new entry for every signal...
 	#replace the text on the button with the text of the node.get_signal()[i]..
 	#until you run out of buttons to retext, or of signals to add to the list
 	
 	for i in signalList.get_child_count()-1:
 		signalList.get_child(i+1).queue_free()
+	for i in funcList.get_child_count()-1:
+		funcList.get_child(i+1).queue_free()
 	for i in _n.get_signal_list().size():
 		MakeNewSignalEntry(_n.get_signal_list()[i].name)
-		#MakeNewFunctionEntry()
+	for i in _n.get_method_list().size():
+		MakeNewFunctionEntry(_n.get_method_list()[i].name)
 		#print(_n.get_signal_list()[i].name)
 
 func MakeNewSignalEntry(_s: String):
 	var _button:= NewEntry()
 	_button.text = _s
 	signalList.add_child(_button)
-	
+
+func MakeNewFunctionEntry(_s:String):
+	var _button:= NewEntry()
+	_button.text = _s
+	funcList.add_child(_button)
+#endregion
+
+#region FilterLists
+func FilterNodes(_s: String):
+	if _s == "":
+		for i in nodeList.get_child_count():
+			nodeList.get_child(i).visible = true
+		return
+	FilterLogic(_s, nodeList)
+
+func FilterSignals(_s: String):
+	if _s == "":
+		for i in signalList.get_child_count():
+			signalList.get_child(i).visible = true
+		return
+	FilterLogic(_s, signalList)
+
+func FilterMethods(_s: String):
+	if _s == "":
+		for i in funcList.get_child_count():
+			funcList.get_child(i).visible = true
+		return
+	FilterLogic(_s, funcList)
+
+func FilterLogic(_s:String, _list:VBoxContainer):
+	for i in _list.get_child_count()-1:
+		if _list.get_child(i+1) is Button:
+			if _s not in _list.get_child(i+1).text:
+				_list.get_child(i+1).visible = false
+			else:
+				_list.get_child(i+1).visible = true
+
+#endregion

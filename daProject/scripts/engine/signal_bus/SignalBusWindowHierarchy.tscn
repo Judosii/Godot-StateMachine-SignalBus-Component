@@ -45,10 +45,9 @@ size_flags_horizontal = 3
 [node name="Title" type="PanelContainer" parent="VBoxContainer/AllListsParent/Node Panel/scrollNodes/nodeList"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/AllListsParent/Node Panel/scrollNodes/nodeList/Title"]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/AllListsParent/Node Panel/scrollNodes/nodeList/Title"]
 layout_mode = 2
-text = "Node List"
-horizontal_alignment = 1
+placeholder_text = "Search Node..."
 
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer/AllListsParent"]
 layout_mode = 2
@@ -68,10 +67,9 @@ size_flags_horizontal = 3
 [node name="Title" type="PanelContainer" parent="VBoxContainer/AllListsParent/Signal Panel/scrollSignals/SignalList"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/AllListsParent/Signal Panel/scrollSignals/SignalList/Title"]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/AllListsParent/Signal Panel/scrollSignals/SignalList/Title"]
 layout_mode = 2
-text = "Signal List"
-horizontal_alignment = 1
+placeholder_text = "Search signal..."
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/AllListsParent"]
 layout_mode = 2
@@ -91,10 +89,9 @@ size_flags_horizontal = 3
 [node name="Title" type="PanelContainer" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals/FunctionList"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals/FunctionList/Title"]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals/FunctionList/Title"]
 layout_mode = 2
-text = "Functions List"
-horizontal_alignment = 1
+placeholder_text = "Search Method..."
 
 [node name="Panel" type="Panel" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
@@ -105,3 +102,7 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Chosen Node: put name here after clicking one i guess then have some buttons over on the right this is a pretty long text lmao"
+
+[connection signal="text_changed" from="VBoxContainer/AllListsParent/Node Panel/scrollNodes/nodeList/Title/LineEdit" to="." method="FilterNodes"]
+[connection signal="text_changed" from="VBoxContainer/AllListsParent/Signal Panel/scrollSignals/SignalList/Title/LineEdit" to="." method="FilterSignals"]
+[connection signal="text_changed" from="VBoxContainer/AllListsParent/Functions Panel/scrollSignals/FunctionList/Title/LineEdit" to="." method="FilterMethods"]
