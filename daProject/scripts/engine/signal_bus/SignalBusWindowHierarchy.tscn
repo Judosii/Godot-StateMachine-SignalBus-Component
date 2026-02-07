@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dq75vajcvgedf"]
+[gd_scene format=3 uid="uid://dq75vajcvgedf"]
 
 [ext_resource type="Script" uid="uid://di2fgx8jtyngs" path="res://scripts/engine/signal_bus/signal_bus_window_hierarchy.gd" id="1_3la38"]
 
-[node name="SignalBus Test" type="Control" node_paths=PackedStringArray("nodeList", "signalList", "funcList")]
+[node name="SignalBus Test" type="Control" unique_id=1131243255 node_paths=PackedStringArray("nodeList", "signalList", "funcList")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +18,7 @@ funcList = NodePath("VBoxContainer/AllListsParent/Functions Panel/scrollSignals/
 buttonHoverSize = Vector2(1.05, 1.05)
 buttonPressSize = Vector2(0.4, 0.4)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1252866329]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,78 +26,78 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AllListsParent" type="HBoxContainer" parent="VBoxContainer"]
+[node name="AllListsParent" type="HBoxContainer" parent="VBoxContainer" unique_id=1673811668]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Node Panel" type="PanelContainer" parent="VBoxContainer/AllListsParent"]
+[node name="Node Panel" type="PanelContainer" parent="VBoxContainer/AllListsParent" unique_id=457482126]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="scrollNodes" type="ScrollContainer" parent="VBoxContainer/AllListsParent/Node Panel"]
+[node name="scrollNodes" type="ScrollContainer" parent="VBoxContainer/AllListsParent/Node Panel" unique_id=1672831690]
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="nodeList" type="VBoxContainer" parent="VBoxContainer/AllListsParent/Node Panel/scrollNodes"]
+[node name="nodeList" type="VBoxContainer" parent="VBoxContainer/AllListsParent/Node Panel/scrollNodes" unique_id=508236502]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Title" type="PanelContainer" parent="VBoxContainer/AllListsParent/Node Panel/scrollNodes/nodeList"]
+[node name="Title" type="PanelContainer" parent="VBoxContainer/AllListsParent/Node Panel/scrollNodes/nodeList" unique_id=1380975851]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer/AllListsParent/Node Panel/scrollNodes/nodeList/Title"]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/AllListsParent/Node Panel/scrollNodes/nodeList/Title" unique_id=1475171916]
 layout_mode = 2
 placeholder_text = "Search Node..."
 
-[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/AllListsParent"]
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/AllListsParent" unique_id=208307729]
 layout_mode = 2
 
-[node name="Signal Panel" type="PanelContainer" parent="VBoxContainer/AllListsParent"]
+[node name="Signal Panel" type="PanelContainer" parent="VBoxContainer/AllListsParent" unique_id=400180863]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="scrollSignals" type="ScrollContainer" parent="VBoxContainer/AllListsParent/Signal Panel"]
+[node name="scrollSignals" type="ScrollContainer" parent="VBoxContainer/AllListsParent/Signal Panel" unique_id=822502223]
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="SignalList" type="VBoxContainer" parent="VBoxContainer/AllListsParent/Signal Panel/scrollSignals"]
+[node name="SignalList" type="VBoxContainer" parent="VBoxContainer/AllListsParent/Signal Panel/scrollSignals" unique_id=1697222487]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Title" type="PanelContainer" parent="VBoxContainer/AllListsParent/Signal Panel/scrollSignals/SignalList"]
+[node name="Title" type="PanelContainer" parent="VBoxContainer/AllListsParent/Signal Panel/scrollSignals/SignalList" unique_id=865451428]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer/AllListsParent/Signal Panel/scrollSignals/SignalList/Title"]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/AllListsParent/Signal Panel/scrollSignals/SignalList/Title" unique_id=45838576]
 layout_mode = 2
 placeholder_text = "Search signal..."
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/AllListsParent"]
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/AllListsParent" unique_id=459863240]
 layout_mode = 2
 
-[node name="Functions Panel" type="PanelContainer" parent="VBoxContainer/AllListsParent"]
+[node name="Functions Panel" type="PanelContainer" parent="VBoxContainer/AllListsParent" unique_id=1211010935]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="scrollSignals" type="ScrollContainer" parent="VBoxContainer/AllListsParent/Functions Panel"]
+[node name="scrollSignals" type="ScrollContainer" parent="VBoxContainer/AllListsParent/Functions Panel" unique_id=1518637997]
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="FunctionList" type="VBoxContainer" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals"]
+[node name="FunctionList" type="VBoxContainer" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals" unique_id=1330486600]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Title" type="PanelContainer" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals/FunctionList"]
+[node name="Title" type="PanelContainer" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals/FunctionList" unique_id=1928201850]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals/FunctionList/Title"]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/AllListsParent/Functions Panel/scrollSignals/FunctionList/Title" unique_id=2135268810]
 layout_mode = 2
 placeholder_text = "Search Method..."
 
-[node name="Panel" type="Panel" parent="VBoxContainer"]
+[node name="Panel" type="Panel" parent="VBoxContainer" unique_id=1575371131]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Panel"]
+[node name="Label" type="Label" parent="VBoxContainer/Panel" unique_id=1416199625]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0

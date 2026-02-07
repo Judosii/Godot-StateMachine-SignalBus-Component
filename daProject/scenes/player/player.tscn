@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1w5ccem33kle"]
+[gd_scene format=3 uid="uid://d1w5ccem33kle"]
 
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_8afob"]
 [ext_resource type="Script" uid="uid://6iyonbfy33sl" path="res://scripts/player/player.gd" id="1_dovo2"]
@@ -10,31 +10,31 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dovo2"]
 size = Vector2(120, 120)
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" unique_id=1655788349]
 script = ExtResource("1_dovo2")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=246193619]
 texture = ExtResource("1_8afob")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1175035384]
 shape = SubResource("RectangleShape2D_dovo2")
 
-[node name="signal_bus" type="Node" parent="."]
+[node name="signal_bus" type="Node" parent="." unique_id=517942071]
 script = ExtResource("3_lvxji")
 windowHierarchy = ExtResource("4_75vfm")
 
-[node name="components_holder" type="Node" parent="."]
+[node name="components_holder" type="Node" parent="." unique_id=789934800]
 
-[node name="inputs_component" type="Node" parent="components_holder"]
+[node name="inputs_component" type="Node" parent="components_holder" unique_id=974935551]
 
-[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+[node name="state_machine" type="Node" parent="." unique_id=2087891239 node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_gmlin")
 current_state = NodePath("idle_State")
 
-[node name="idle_State" type="Node" parent="state_machine"]
+[node name="idle_State" type="Node" parent="state_machine" unique_id=1907085812]
 script = ExtResource("6_75vfm")
 metadata/_custom_type_script = "uid://b5v7lmbmxgtvt"
 
-[node name="walk_State" type="Node" parent="state_machine"]
+[node name="walk_State" type="Node" parent="state_machine" unique_id=1344997032]
 script = ExtResource("6_75vfm")
 metadata/_custom_type_script = "uid://b5v7lmbmxgtvt"

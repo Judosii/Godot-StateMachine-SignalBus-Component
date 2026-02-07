@@ -2,9 +2,12 @@
 extends Control
 class_name SignalBus_WindowHierarchy
 
+@export_category("Exported locations")
 @export var nodeList: VBoxContainer
 @export var signalList: VBoxContainer
 @export var funcList: VBoxContainer
+
+@export_category("Button inspector variables")
 @export var buttonHoverSize: Vector2
 @export var buttonPressSize: Vector2
 
@@ -18,6 +21,8 @@ func GetNodeList()-> VBoxContainer: #WARNING, child 0 will always be title
 
 func NewEntry() -> Button:
 	var _butt:= Button.new()
+	_butt.pivot_offset_ratio = Vector2(0.5,0.5)
+	_butt.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
 	
 	var _cEnter:= Callable(self, "ButtonMouseEntered").bind(_butt)
 	_butt.mouse_entered.connect(_cEnter)
@@ -35,14 +40,9 @@ func MakeNewNodeEntry(_n: Node) -> Control:
 	_button.expand_icon = true
 	_button.text = _n.name
 	_button.connect("pressed", Callable(self, "NewNodeSelected").bind(_n))
-	var _cInit := Callable(self, "InitializeButton").bind(_button)
-	_cInit.call_deferred()
 	return _button
 
 #region Button Initialisation
-func InitializeButton(_b:Button):
-	_b.pivot_offset = _b.size/2.0
-
 func ButtonMouseEntered(_b:Button):
 	create_tween().tween_property(_b,"scale",buttonHoverSize,0.1).set_trans(Tween.TRANS_SINE)
 
@@ -51,37 +51,65 @@ func ButtonMouseExited(_b:Button):
 
 func ButtonMousePressed(_b:Button):
 	create_tween().tween_property(_b,"scale",buttonPressSize,0.06).set_trans(Tween.TRANS_SINE)
-	create_tween().tween_property(_b,"scale", buttonHoverSize, 0.2).set_trans(Tween.TRANS_SINE)
+	create_tween().tween_property(_b,"scale", buttonHoverSize, 0.1).set_trans(Tween.TRANS_SINE)
 #endregion
 
 #region Node Selected, show signals & functions
 func NewNodeSelected(_n:Node):
-	#instead of making a new entry for every signal...
-	#replace the text on the button with the text of the node.get_signal()[i]..
-	#until you run out of buttons to retext, or of signals to add to the list
-	
 	for i in signalList.get_child_count()-1:
 		signalList.get_child(i+1).queue_free()
 	for i in funcList.get_child_count()-1:
 		funcList.get_child(i+1).queue_free()
+	#Both following functions are coreroutines
+	#Have to stop them if still going + new node selected
+	MakeAllSignalEntries(_n)
+	MakeAllMethodEntries(_n)
+
+func MakeSmallLoadingText(_list) -> Label:
+	var _l:= Label.new()
+	var _p:= Panel.new()
+	_list.add_child(_p)
+	_p.add_child(_l)
+	_p.size_flags_horizontal = Control.SIZE_FILL
+	_p.size_flags_vertical = Control.SIZE_FILL
+	return _l
+
+func MakeAllSignalEntries(_n:Node):
+	var _l = MakeSmallLoadingText(signalList)
+	_l.text = "loading all signals..."
+	
+	await get_tree().create_timer(0.5).timeout
 	for i in _n.get_signal_list().size():
 		MakeNewSignalEntry(_n.get_signal_list()[i].name)
+	_l.get_parent().queue_free()
+
+func MakeAllMethodEntries(_n:Node):
+	var _l:= MakeSmallLoadingText(funcList)
+	_l.text = "loading all methods..."
+	
+	await get_tree().create_timer(0.5).timeout
 	for i in _n.get_method_list().size():
-		MakeNewFunctionEntry(_n.get_method_list()[i].name)
-		#print(_n.get_signal_list()[i].name)
+		await MakeNewFunctionEntry(_n.get_method_list()[i].name)
+	_l.get_parent().queue_free()
 
 func MakeNewSignalEntry(_s: String):
+	await get_tree().create_timer(0.00001).timeout
 	var _button:= NewEntry()
+	
 	_button.text = _s
 	signalList.add_child(_button)
+	_button.pressed.connect(Callable(self,"OnSignalButtonClicked").bind(_button))
+	
 
 func MakeNewFunctionEntry(_s:String):
+	await get_tree().create_timer(0.00001).timeout
 	var _button:= NewEntry()
+	
 	_button.text = _s
 	funcList.add_child(_button)
 #endregion
 
-#region FilterLists
+#region FilterListsViaLineeditNode
 func FilterNodes(_s: String):
 	if _s == "":
 		for i in nodeList.get_child_count():
@@ -110,5 +138,12 @@ func FilterLogic(_s:String, _list:VBoxContainer):
 				_list.get_child(i+1).visible = false
 			else:
 				_list.get_child(i+1).visible = true
+
+#endregion
+
+#region signalButtonLogic
+func OnSignalButtonClicked(_b: Button):
+	pass
+
 
 #endregion
